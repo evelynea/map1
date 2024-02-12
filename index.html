@@ -1,0 +1,294 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map using arcgis/map-components</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+   <!-- Load Map Components from CDN-->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.28/"></script>
+  <!-- <script type="module" src="https://js.arcgis.com/map-components/4.28/arcgis-map-components.esm.js"></script> -->
+  <script>
+    require([
+      "esri/config", 
+      "esri/Map", 
+      "esri/views/MapView",
+
+      "esri/Graphic",
+    "esri/layers/GraphicsLayer",
+
+      "esri/Basemap",
+      "esri/layers/VectorTileLayer",
+      "esri/layers/TileLayer",
+
+      "esri/rest/locator",
+      "esri/widgets/Locate",
+
+      "esri/widgets/Track",
+      "esri/Graphic",
+
+      "esri/widgets/Search"
+    ], function(
+      esriConfig, 
+      Map, 
+      MapView,
+      Basemap,
+      Graphic,
+      GraphicsLayer,
+      VectorTileLayer,
+      TileLayer,
+      Locate,
+
+      Track,
+      Graphic,
+
+      Search
+      ) {
+      esriConfig.apiKey = "AAPKb43446edc66646c5a6901cca1b17c449TySb_4SzsjkE9FqapQnfymyoxzARkGapVNdFNQk1i3gCdQNfEqM86uWfUqdh1H4E";
+
+      const vectorTileLayer = new VectorTileLayer({
+        portalItem: {
+          id: "6976148c11bd497d8624206f9ee03e30" // Forest and Parks Canvas
+        },
+        opacity: 0.75
+      });
+
+      const imageTileLayer = new TileLayer({
+        portalItem: {
+          id: "1b243539f4514b6ba35e7d995890db1d" // World Hillshade
+        }
+      });
+
+      const basemap = new Basemap({
+        baseLayers: [
+
+          imageTileLayer,
+          vectorTileLayer
+
+        ]
+      });
+
+        const map = new Map({
+          basemap: "arcgis/navigation" // basemap styles service
+        });
+
+        const view = new MapView({
+          map: map,
+          center: [-97, 30], // Longitude, latitude
+          zoom: 3, // Zoom level
+          container: "viewDiv" // Div element
+        });
+
+        const searchWidget = new Search({
+          view: view          
+        })
+        view.ui.add(searchWidget, "top-left")
+        
+//         const graphicsLayer = new GraphicsLayer();
+//         map.add(graphicsLayer);
+
+//         const point = { //Create a point
+//     type: "point",
+//     longitude: -118.80657463861,
+//     latitude: 34.0005930608889
+//  };
+//  const simpleMarkerSymbol = {
+//     type: "simple-marker",
+//     color: [226, 119, 40],  // Orange
+//     outline: {
+//         color: [255, 255, 255], // White
+//         width: 1
+//     }
+//  };
+//  const pointGraphic = new Graphic({
+//     geometry: point,
+//     symbol: simpleMarkerSymbol
+//  });
+//  graphicsLayer.add(pointGraphic);
+
+//  // Create a line geometry
+//  const polyline = {
+//     type: "polyline",
+//     paths: [
+//         [-118.821527826096, 34.0139576938577], //Longitude, latitude
+//         [-118.814893761649, 34.0080602407843], //Longitude, latitude
+//         [-118.808878330345, 34.0016642996246]  //Longitude, latitude
+//     ]
+//  };
+//  const simpleLineSymbol = {
+//     type: "simple-line",
+//     color: [226, 119, 40], // Orange
+//     width: 2
+//  };
+
+//  const polylineGraphic = new Graphic({
+//     geometry: polyline,
+//     symbol: simpleLineSymbol
+//  });
+//  graphicsLayer.add(polylineGraphic);
+
+//       // Create a polygon geometry
+//  const polygon = {
+//     type: "polygon",
+//     rings: [
+//         [-118.818984489994, 34.0137559967283], //Longitude, latitude
+//         [-118.806796597377, 34.0215816298725], //Longitude, latitude
+//         [-118.791432890735, 34.0163883241613], //Longitude, latitude
+//         [-118.79596686535, 34.008564864635],   //Longitude, latitude
+//         [-118.808558110679, 34.0035027131376]  //Longitude, latitude
+//     ]
+//  };
+
+//  const simpleFillSymbol = {
+//     type: "simple-fill",
+//     color: [227, 139, 79, 0.8],  // Orange, opacity 80%
+//     outline: {
+//         color: [255, 255, 255],
+//         width: 1
+//     }
+//  };
+//  const popupTemplate = {
+//     title: "{Name}",
+//     content: "{Description}"
+//  }
+//  const attributes = {
+//     Name: "Graphic",
+//     Description: "I am a polygon"
+//  }
+
+//  const polygonGraphic = new Graphic({
+//     geometry: polygon,
+//     symbol: simpleFillSymbol,
+
+//     attributes: attributes,
+//     popupTemplate: popupTemplate
+//  });
+//  graphicsLayer.add(polygonGraphic);
+
+
+
+
+        // const places = ["Choose a place type...", "Parks and Outdoors", "Coffee shop", "Gas station", "Food", "Hotel"];
+
+        // const select = document.createElement("select");
+        // select.setAttribute("class", "esri-widget esri-select");
+        // select.setAttribute("style", "width: 175px; font-family: 'Avenir Next W00'; font-size: 1em");
+
+        // places.forEach((p) => {
+        //   const option = document.createElement("option");
+        //   option.value = p;
+        //   option.innerHTML = p;
+        //   select.appendChild(option);
+        // });
+
+        // view.ui.add(select, "top-right");
+        
+
+
+        
+
+        // const locatorUrl = "http://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+        // // Find places and add them to the map
+        // function findPlaces(category, pt) {
+        //   locator
+        //     .addressToLocations(locatorUrl, {
+        //       location: pt,
+        //       categories: [category],
+        //       maxLocations: 25,
+        //       outFields: ["Place_addr", "PlaceName"]
+        //     })
+
+        //     .then((results) => {
+        //       view.closePopup();
+        //       view.graphics.removeAll();
+
+        //       results.forEach((result) => {
+        //         view.graphics.add(
+        //           new Graphic({
+        //             attributes: result.attributes, // Data attributes returned
+        //             geometry: result.location, // Point returned
+        //             symbol: {
+        //               type: "simple-marker",
+        //               color: "#000000",
+        //               size: "12px",
+        //               outline: {
+        //                 color: "#ffffff",
+        //                 width: "2px"
+        //               }
+        //             },
+
+        //             popupTemplate: {
+        //               title: "{PlaceName}", // Data attribute names
+        //               content: "{Place_addr}"
+        //             }
+        //           })
+        //         );
+        //       });
+        //     });
+        // }
+
+        // // Search for places in center of map
+        // reactiveUtils.when(
+        //   () => view.stationary,
+        //   () => {
+        //     findPlaces(select.value, view.center);
+        //   }
+        // );
+
+        // // Listen for category changes and find places
+        // select.addEventListener("change", (event) => {
+        //   findPlaces(event.target.value, view.center);
+        // });
+
+
+        // const track = new Track({
+        //   view: view,
+        //   graphic: new Graphic({
+        //     symbol: {
+        //       type: "simple-marker",
+        //       size: "12px",
+        //       color: "green",
+        //       outline: {
+        //         color: "#efefef",
+        //         width: "1.5px"
+        //       }
+        //     }
+        //   }),
+        //   useHeadingEnabled: false
+        // });
+        // view.ui.add(track, "top-left");
+        // // const locate = new Locate({
+        // //   view: view,
+        // //   useHeadingEnabled: false,
+        // //   goToOverride: function(view, options) {
+        // //     options.target.scale = 1500;
+        // //     return view.goTo(options.target);
+        // //   }
+        // // });
+
+
+        // view.ui.add(locate, "top-left");
+
+
+    });
+  </script>
+
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+
+</body>
+
+</html>
